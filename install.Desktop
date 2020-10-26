@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name= Cài đặt
+Icon=/home/pi/Desktop/install_folder/icon/setting.png
+Exec=sudo python3 /home/pi/Desktop/install_folder/program/install.py
+X-Desktop-File-Install-Version=0.20
