@@ -71,7 +71,7 @@ def ApplyExit():
 	if(e0.get() != test_t):
 		SetNetwork()
 	#
-	if(eUrl.get() !="https://"):
+	if(eUrl.get() !="--alsa-output-device='plug:surround21' https://https://www.youtube.com/watch?v=laT4X5as_F8"):
 		#print("url ok")
 		AddUrl()
 	SetDisplay()
@@ -916,7 +916,7 @@ UrlLabel = Label(ui, text="URL              ", bg="gray30", fg="white", font= si
 Label31 = Label(ui, text="Nhập URL", bg="gray30", fg="white", font= size12) #
 eUrl = Entry(ui, width=50, bg="ghost white", fg="black")
 
-UserURL = "https://"
+UserURL = "--alsa-output-device='plug:surround21' https://https://www.youtube.com/watch?v=laT4X5as_F8"
 eUrl.insert(0, UserURL) #edit Language
 UrlApply = Button(ui, text=" Apply  ", command= AddUrl)
 
@@ -1004,4 +1004,56 @@ make_textmenu(ui)
 ui.bind_class("Entry", "<Button-3><ButtonRelease-3>", show_textmenu)
 ui.bind_class("Entry", "<Control-a>", callback_select_all)
 ##End_Paste_Entry
+##Update&Upgrade:
+
+version = "version_1.0"
+def Show_update():
+	def Update():
+		os.system("git clone https://github.com/HuynhLVC/version.ui.git")
+		os.system("sudo rm /usr/program/ui.py")
+		os.system("sudo mv /home/pi/ui/ui.py /usr/program")
+		top.quit()
+		top_done = Toplevel()
+		top_done.geometry("400x82+745+449")
+		top_done.title("Đã hoàn tất cập nhật!")
+		top_done.configure(bg='gray85')
+		Completed = Label(top_done, text= " Sẽ khởi động lại phần mềm", bg="gray85", fg="black", font=size12)
+		Completed.grid(row = 0, column = 0)
+		ui.quit()
+		os.system("sudo python3 /usr/program/ui.py")
+	def Later():
+		top.quit()
+	size16 = tkfont.Font(size = 16)
+	size12 = tkfont.Font(size = 12)
+	size13 = tkfont.Font(size = 13)
+	size11 = tkfont.Font(size = 11)
+	top = Toplevel()
+	top.geometry("400x82+745+449")
+	top.title("Cập nhật phiên bản mới!")
+	top.configure(bg='gray85')
+	Completed = Label(top, text= " Reboot now to apply settings!", bg="gray85", fg="black", font=size12)
+	past = Label(top, text= "  ", bg="gray85")
+	Completed.grid(row = 0, column = 0)
+	Update = Button(top, text="Cập nhật!", command= Reboot, bg="gray80")
+	Later = Button(top, text="Để sau!", command= Later, bg="gray80" )
+	
+	past.grid(row = 1, column = 0)
+	Reboot.grid(row = 2, column = 0, sticky = 'WN', padx = 20)
+	Later.grid(row = 2, column = 1, sticky = 'EN', padx = 71)
+def Check_update_ui():
+	fin = open("/boot/config.txt", "r")
+	check_now = 0
+	while(True):
+		line = fin.readline()
+		if not line:
+			break
+		if line.strip() == version:
+			break
+		else:
+			Show_update()
+			
+os.system("git clone https://github.com/HuynhLVC/version.ui.git")
+Check_update_ui()
+
+
 ui.mainloop()
