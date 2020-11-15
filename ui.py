@@ -1030,7 +1030,7 @@ def Show_update():
 		Completed.grid(row = 0, column = 0)
 		time.sleep(2)
 		ui.quit()
-		os.system("sudo python3 /usr/program/ui.py")
+		#os.system("sudo python3 /usr/program/ui.py")
 		os.system("sudo rm -r /home/pi/ui")
 	def Later():
 		top.quit()
@@ -1043,7 +1043,7 @@ def Show_update():
 	top.geometry("400x82+745+449")
 	top.title("Cập nhật Lịch Thông Minh!")
 	top.configure(bg='gray85')
-	Completed = Label(top, text= "        Nhận bản cập nhật mới nhất!", bg="gray85", fg="black", font=size12)
+	Completed = Label(top, text= "Hãy khởi động lại ứng dụng sau khi hoàn tất cập nhật!", bg="gray85", fg="black", font=size12)
 	past = Label(top, text= "  ", bg="gray85")
 	Completed.grid(row = 0, column = 0)
 	Update = Button(top, text="Cập nhật!", command= Update, bg="gray80")
