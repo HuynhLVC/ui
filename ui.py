@@ -1028,6 +1028,7 @@ def Show_update():
 		top_done.configure(bg='gray85')
 		Completed = Label(top_done, text= " Sẽ khởi động lại phần mềm", bg="gray85", fg="black", font=size12)
 		Completed.grid(row = 0, column = 0)
+		tmie.sleep(2)
 		ui.quit()
 		os.system("sudo python3 /usr/program/ui.py")
 		os.system("sudo rm -r /home/pi/ui")
