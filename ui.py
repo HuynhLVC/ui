@@ -6,11 +6,28 @@ from tkinter.ttk import Combobox
 from tkinter import font as tkfont
 import tkinter as Settings
 
-def cloneUpdate():
+internet = 0
 	
+def check_internet():
+	import urllib.request
+	def connect(host='http://google.com'):
+		try:
+			urllib.request.urlopen(host) #Python 3.x
+			return True
+		except:
+			return False
+	#check
+	if connect():
+		internet = 1
+check_internet()
+
+def cloneUpdate():
 	os.system("git clone https://github.com/HuynhLVC/versionui.git ")
 	#print("clone loading")
-cloneUpdate()
+
+if internet == 1:
+	cloneUpdate()
+
 def Fix_monitor():
 	#os.system("sudo nano /boot/config.txt")
 	#
@@ -1072,7 +1089,8 @@ def Check_update_ui():
 			break
 			
 #
-Check_update_ui()
+if internet == 1:
+	Check_update_ui()
 os.system("sudo rm -r /home/pi/versionui")
 
 ui.mainloop()
