@@ -1016,7 +1016,7 @@ ui.bind_class("Entry", "<Control-a>", callback_select_all)
 ##End_Paste_Entry
 ##Update&Upgrade:
 
-version = "version_1.1"
+version = "version_1.2"
 #os.system("sudo rm -r /home/pi/versionui")
 
 #time.sleep(10)
