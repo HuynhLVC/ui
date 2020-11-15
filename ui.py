@@ -1051,7 +1051,7 @@ def Show_update():
 	
 	past.grid(row = 1, column = 0)
 	Update.grid(row = 2, column = 0, sticky = 'WN', padx = 20)
-	Later.grid(row = 2, column = 1, sticky = 'EN', padx = 71)
+	Later.grid(row = 2, column = 1, sticky = 'EN', padx = 30)
 def Check_update_ui():
 	#os.system("sudo rm -r /home/pi/versionui")
 	fin = open("/home/pi/versionui/version.txt", "r")
