@@ -6,28 +6,11 @@ from tkinter.ttk import Combobox
 from tkinter import font as tkfont
 import tkinter as Settings
 
-	
-def check_internet():
-	import urllib.request
-	def connect(host='https://youtube.com'):
-		try:
-			urllib.request.urlopen(host) #Python 3.x
-			return True
-		except:
-			return False
-	#check
-	if connect():
-		print("connect ok")
-
-check_internet()
-
 def cloneUpdate():
 	os.system("git clone https://github.com/HuynhLVC/versionui.git")
 	print("clone loading")
 	
 #cloneUpdate()
-	
-
 
 def Fix_monitor():
 	#os.system("sudo nano /boot/config.txt")
