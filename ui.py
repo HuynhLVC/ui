@@ -1011,7 +1011,7 @@ ui.bind_class("Entry", "<Control-a>", callback_select_all)
 ##End_Paste_Entry
 ##Update&Upgrade:
 
-version = "version_1.5"
+version = "version_1.6"
 #os.system("sudo rm -r /home/pi/versionui")
 
 #time.sleep(10)
@@ -1065,6 +1065,7 @@ def Check_update_ui():
 			#os.system("sudo rm -r /home/pi/versionui")
 			break
 		else:
+			os.system("sudo rm -r /home/pi/ui")
 			os.system("git clone https://github.com/HuynhLVC/ui.git")
 			Show_update()
 			break
