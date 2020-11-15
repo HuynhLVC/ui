@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import time
 from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter import font as tkfont
@@ -71,7 +72,7 @@ def ApplyExit():
 	if(e0.get() != test_t):
 		SetNetwork()
 	#
-	if(eUrl.get() !="--alsa-output-device='plug:surround21' https://https://www.youtube.com/watch?v=laT4X5as_F8"):
+	if(eUrl.get() !="https://"):
 		#print("url ok")
 		AddUrl()
 	SetDisplay()
@@ -916,7 +917,7 @@ UrlLabel = Label(ui, text="URL              ", bg="gray30", fg="white", font= si
 Label31 = Label(ui, text="Nhập URL", bg="gray30", fg="white", font= size12) #
 eUrl = Entry(ui, width=50, bg="ghost white", fg="black")
 
-UserURL = "--alsa-output-device='plug:surround21' https://https://www.youtube.com/watch?v=laT4X5as_F8"
+UserURL = "https://"
 eUrl.insert(0, UserURL) #edit Language
 UrlApply = Button(ui, text=" Apply  ", command= AddUrl)
 
@@ -1031,14 +1032,14 @@ def Show_update():
 	top.geometry("400x82+745+449")
 	top.title("Cập nhật phiên bản mới!")
 	top.configure(bg='gray85')
-	Completed = Label(top, text= " Reboot now to apply settings!", bg="gray85", fg="black", font=size12)
+	Completed = Label(top, text= " Nhận bản cập nhật mới nhất!", bg="gray85", fg="black", font=size12)
 	past = Label(top, text= "  ", bg="gray85")
 	Completed.grid(row = 0, column = 0)
-	Update = Button(top, text="Cập nhật!", command= Reboot, bg="gray80")
+	Update = Button(top, text="Cập nhật!", command= Update, bg="gray80")
 	Later = Button(top, text="Để sau!", command= Later, bg="gray80" )
 	
 	past.grid(row = 1, column = 0)
-	Reboot.grid(row = 2, column = 0, sticky = 'WN', padx = 20)
+	Update.grid(row = 2, column = 0, sticky = 'WN', padx = 20)
 	Later.grid(row = 2, column = 1, sticky = 'EN', padx = 71)
 def Check_update_ui():
 	fin = open("/boot/config.txt", "r")
@@ -1051,6 +1052,7 @@ def Check_update_ui():
 			break
 		else:
 			Show_update()
+			break
 			
 os.system("git clone https://github.com/HuynhLVC/version.ui.git")
 Check_update_ui()
