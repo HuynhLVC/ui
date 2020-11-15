@@ -6,11 +6,6 @@ from tkinter.ttk import Combobox
 from tkinter import font as tkfont
 import tkinter as Settings
 
-def cloneUpdate():
-	os.system("git clone https://github.com/HuynhLVC/versionui.git")
-	#print("clone loading")
-	
-#cloneUpdate()
 
 def Fix_monitor():
 	#os.system("sudo nano /boot/config.txt")
