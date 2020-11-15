@@ -1011,7 +1011,7 @@ ui.bind_class("Entry", "<Control-a>", callback_select_all)
 ##End_Paste_Entry
 ##Update&Upgrade:
 
-version = "version_1.4"
+version = "version_1.5"
 #os.system("sudo rm -r /home/pi/versionui")
 
 #time.sleep(10)
@@ -1028,8 +1028,7 @@ def Show_update():
 		top_done.configure(bg='gray85')
 		Completed = Label(top_done, text= " Sẽ khởi động lại phần mềm", bg="gray85", fg="black", font=size12)
 		Completed.grid(row = 0, column = 0)
-		tmie.sleep(2)
-		ui.quit()
+		time.sleep(2)
 		ui.quit()
 		os.system("sudo python3 /usr/program/ui.py")
 		os.system("sudo rm -r /home/pi/ui")
