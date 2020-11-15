@@ -5,6 +5,12 @@ from tkinter import *
 from tkinter.ttk import Combobox
 from tkinter import font as tkfont
 import tkinter as Settings
+
+def cloneUpdate():
+	
+	os.system("git clone https://github.com/HuynhLVC/versionui.git ")
+	#print("clone loading")
+cloneUpdate()
 def Fix_monitor():
 	#os.system("sudo nano /boot/config.txt")
 	#
@@ -1011,7 +1017,7 @@ ui.bind_class("Entry", "<Control-a>", callback_select_all)
 
 version = "version_1.0"
 #os.system("sudo rm -r /home/pi/versionui")
-os.system("git clone https://github.com/HuynhLVC/versionui.git")
+
 #time.sleep(10)
 def Show_update():
 	def Update():
@@ -1028,7 +1034,7 @@ def Show_update():
 		Completed = Label(top_done, text= " Sẽ khởi động lại phần mềm", bg="gray85", fg="black", font=size12)
 		Completed.grid(row = 0, column = 0)
 		ui.quit()
-		#os.system("sudo python3 /usr/program/ui.py")
+		os.system("sudo python3 /usr/program/ui.py")
 	def Later():
 		top.quit()
 		#os.system("sudo rm -r /home/pi/versionui")
@@ -1038,7 +1044,7 @@ def Show_update():
 	size11 = tkfont.Font(size = 11)
 	top = Toplevel()
 	top.geometry("400x82+745+449")
-	top.title("Cập nhật phiên bản mới!")
+	top.title("Cập nhật Lịch Thông Minh!")
 	top.configure(bg='gray85')
 	Completed = Label(top, text= " Nhận bản cập nhật mới nhất!", bg="gray85", fg="black", font=size12)
 	past = Label(top, text= "  ", bg="gray85")
@@ -1059,7 +1065,7 @@ def Check_update_ui():
 			break
 		if line.strip() == version:
 			print("ine.strip() == version")
-			os.system("sudo rm -r /home/pi/versionui")
+			#os.system("sudo rm -r /home/pi/versionui")
 			break
 		else:
 			Show_update()
@@ -1067,6 +1073,6 @@ def Check_update_ui():
 			
 #
 Check_update_ui()
-
+os.system("sudo rm -r /home/pi/versionui")
 
 ui.mainloop()
