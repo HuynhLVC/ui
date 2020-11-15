@@ -8,7 +8,7 @@ import tkinter as Settings
 
 def cloneUpdate():
 	os.system("git clone https://github.com/HuynhLVC/versionui.git")
-	print("clone loading")
+	#print("clone loading")
 	
 #cloneUpdate()
 
@@ -1084,7 +1084,7 @@ def connect(host='https://youtube.com'):
 if connect():
 	os.system("git clone https://github.com/HuynhLVC/versionui.git")
 	Check_update_ui()
-	print("check_update")
+	#print("check_update")
 	os.system("sudo rm -r /home/pi/versionui")
 
 ui.mainloop()
