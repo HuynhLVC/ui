@@ -1030,6 +1030,7 @@ def Show_update():
 		Completed.grid(row = 0, column = 0)
 		tmie.sleep(2)
 		ui.quit()
+		ui.quit()
 		os.system("sudo python3 /usr/program/ui.py")
 		os.system("sudo rm -r /home/pi/ui")
 	def Later():
