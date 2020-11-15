@@ -6,11 +6,10 @@ from tkinter.ttk import Combobox
 from tkinter import font as tkfont
 import tkinter as Settings
 
-internet = 0
 	
 def check_internet():
 	import urllib.request
-	def connect(host='http://google.com'):
+	def connect(host='https://youtube.com'):
 		try:
 			urllib.request.urlopen(host) #Python 3.x
 			return True
@@ -18,15 +17,17 @@ def check_internet():
 			return False
 	#check
 	if connect():
-		internet = 1
+		print("connect ok")
+
 check_internet()
 
 def cloneUpdate():
-	os.system("git clone https://github.com/HuynhLVC/versionui.git ")
-	#print("clone loading")
+	os.system("git clone https://github.com/HuynhLVC/versionui.git")
+	print("clone loading")
+	
+#cloneUpdate()
+	
 
-if internet == 1:
-	cloneUpdate()
 
 def Fix_monitor():
 	#os.system("sudo nano /boot/config.txt")
@@ -1081,7 +1082,7 @@ def Check_update_ui():
 		if not line:
 			break
 		if line.strip() == version:
-			print("ine.strip() == version")
+			print("line.strip() == version")
 			#os.system("sudo rm -r /home/pi/versionui")
 			break
 		else:
@@ -1089,8 +1090,18 @@ def Check_update_ui():
 			break
 			
 #
-if internet == 1:
+import urllib.request
+def connect(host='https://youtube.com'):
+	try:
+		urllib.request.urlopen(host) #Python 3.x
+		return True
+	except:
+		return False
+	#check
+if connect():
+	os.system("git clone https://github.com/HuynhLVC/versionui.git")
 	Check_update_ui()
-os.system("sudo rm -r /home/pi/versionui")
+	print("check_update")
+	os.system("sudo rm -r /home/pi/versionui")
 
 ui.mainloop()
