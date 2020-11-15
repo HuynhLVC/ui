@@ -1022,7 +1022,6 @@ version = "version_1.1"
 #time.sleep(10)
 def Show_update():
 	def Update():
-		os.system("git clone https://github.com/HuynhLVC/ui.git")
 		os.system("sudo rm /usr/program/ui.py")
 		os.system("sudo mv /home/pi/ui/ui.py /usr/program")
 		
@@ -1036,6 +1035,7 @@ def Show_update():
 		Completed.grid(row = 0, column = 0)
 		ui.quit()
 		os.system("sudo python3 /usr/program/ui.py")
+		os.system("sudo rm -r /home/pi/ui")
 	def Later():
 		top.quit()
 		#os.system("sudo rm -r /home/pi/versionui")
@@ -1069,6 +1069,7 @@ def Check_update_ui():
 			#os.system("sudo rm -r /home/pi/versionui")
 			break
 		else:
+			os.system("git clone https://github.com/HuynhLVC/ui.git")
 			Show_update()
 			break
 			
