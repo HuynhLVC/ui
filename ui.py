@@ -1011,7 +1011,7 @@ ui.bind_class("Entry", "<Control-a>", callback_select_all)
 ##End_Paste_Entry
 ##Update&Upgrade:
 
-version = "version_1.6"
+version = "version_1.4"
 #os.system("sudo rm -r /home/pi/versionui")
 
 #time.sleep(10)
@@ -1021,7 +1021,6 @@ def Show_update():
 		os.system("sudo mv /home/pi/ui/ui.py /usr/program")
 		
 		#os.system("sudo rm -r /home/pi/versionui")
-		top.quit()
 		top_done = Toplevel()
 		top_done.geometry("400x82+745+449")
 		top_done.title("Đã hoàn tất cập nhật!")
