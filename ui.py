@@ -1006,7 +1006,7 @@ def Show_update():
 	top.geometry("310x82+745+449")
 	top.title("Cập nhật Lịch Thông Minh!")
 	top.configure(bg='gray85')
-	Completed = Label(top, text= "     Đã tải xuống version mới!\nKhởi động lại ứng  sau khi cập nhật!", bg="gray85", fg="black", font=size12)
+	Completed = Label(top, text= "     Đã tải xuống version mới!\n  Khởi động lại ứng  sau khi cập nhật!", bg="gray85", fg="black", font=size12)
 	#past = Label(top, text= "  ", bg="gray85")
 	Completed.grid(row = 0, column = 0)
 	Update = Button(top, text="Cập nhật!", command= Update, bg="gray80")
