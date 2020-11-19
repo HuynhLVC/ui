@@ -159,7 +159,7 @@ def WifiTab():
 	destroyAddUrl()
 	destroyTimeTab()
 	#...
-	ui.geometry("1049x722")
+	ui.geometry("1049x759")
 	NetLabel.grid(row=0, column=3)
 	Label0.grid(row=1, column=2)
 	e0.grid(row=1, column=3)
@@ -196,7 +196,7 @@ def RotateTab():
 	destroyTimeTab()
 	
 	window.grid_remove() #
-	ui.geometry("1049x348")#
+	ui.geometry("1049x408")#
 	
 	Up_Choice.grid(row=1, column=3, sticky='W')
 	R_Choice.grid(row=2, column=3, sticky='W')
@@ -523,7 +523,7 @@ def UrlTab():
 	destroyRotateDl()
 	destroyTimeTab()
 	#
-	ui.geometry("1049x722")
+	ui.geometry("1049x759")
 	UrlLabel.grid(row=0, column=3)
 	Label31.grid(row=1, column=2)
 	eUrl.grid(row=1, column=3)
@@ -562,7 +562,7 @@ def TimeTab():
 	destroyRotateDl()
 	destroyAddUrl()
 	window.grid_remove() #
-	ui.geometry("1049x348")# 950x350 old
+	ui.geometry("1049x408")# 950x350 old
 	TimeLabel.grid(row= 0, column= 3)
 	cmLabel.grid(row= 1, column= 3, sticky = 'N')
 	OnLabel.grid(row= 2, column= 2, sticky = 'N')
@@ -972,50 +972,13 @@ mOff_box = Combobox(ui, values = mOn_items, width = 10, height = 5, font = size1
 mOff_box.current(0) #defaut value
 #
 #OK = Button(ui, text="OK", command=print_choice) #button 
-#TimeApply = Button(ui, text=" Apply  ", command= ) 
-#### MENU
-iconWifi = PhotoImage(file = r"/usr/icon/wifi.png")
-Wifiimage = iconWifi.subsample(11, 11)
-iconDl = PhotoImage(file = r"/usr/icon/rotate.png")
-Dlimage = iconDl.subsample(18, 18)
-iconUrl = PhotoImage(file = r"/usr/icon/url.png")
-Urlimage = iconUrl.subsample(10, 10)
-iconTime = PhotoImage(file = r"/usr/icon/time.png")
-Timeimage = iconTime.subsample(18, 18)
-Net = Button(ui, image = Wifiimage, compound=LEFT, text = "Wi-Fi   ", bg="gray80", fg="black",width=275, height=45, font=size13 , borderwidth=3, command = WifiTab) 
-Dl = Button(ui,image = Dlimage, compound=LEFT, text = "Màn Hình & Xoay   ", bg="gray80", fg="black",width=275, height=45, font=size13, borderwidth=3, command = RotateTab) # when not (icon compound=LEFT,) width=27, height=2,
-Url = Button(ui, image = Urlimage, compound=LEFT, text = "Nhập URL   ", bg="gray80", fg="black",width=275, height=45, font=size13, borderwidth=3, command = UrlTab)
-Tdl = Button(ui, image = Timeimage, compound=LEFT, text = "Tắt & Mở tự động   ", bg="gray80",width=275, height=45, font=size13, borderwidth=3, command = TimeTab) # 
-ExitBt = Button(ui, text = "Áp Dụng", bg="gray80", fg="black",width=25, height=2, font=size13, borderwidth=3, command = ApplyExit) 
-KeyUse = Label(ui, text= "                                                                       Khởi động lại để chắc chắc cài đặt được áp dụng! - (ESC để hủy và thoát!) ", bg="gray30", fg="white", font=size12)
-# Shoving it into the screen
-Net.grid(row=0, column=0, sticky = 'W')
-Dl.grid(row=1, column=0, sticky = 'W')
-Url.grid(row=2, column=0, sticky = 'W') 
-Tdl.grid(row=3, column=0, sticky = 'W')
-ExitBt.grid(row=4, column=0, sticky = 'W')
-KeyUse.grid(row=5, column =0, columnspan = 5, sticky =  'S')
-#Update
-WifiTab()
-create(frame, e0)
-if os.path.exists("/home/pi/OnOffDisplay.py") == True:
-	GetTimeOld()
-#
-ui.geometry("1049x722+400+100") #Zise def 950x350
-#ui.iconbitmap('/usr/icon/My_calender_logo.ico')
-##Start_Paste_Entry
-make_textmenu(ui)
-# bind the feature to all Entry widget
-ui.bind_class("Entry", "<Button-3><ButtonRelease-3>", show_textmenu)
-ui.bind_class("Entry", "<Control-a>", callback_select_all)
-##End_Paste_Entry
-##Update&Upgrade:
-
-version = "version_1.4"
+#TimeApply = Button(ui, text=" Apply  ", command= )
+#19/11/20
 #os.system("sudo rm -r /home/pi/versionui")
 
 #time.sleep(10)
 def Show_update():
+	Completed.grid_remove()
 	def Update():
 		os.system("sudo rm /usr/program/ui.py")
 		os.system("sudo mv /home/pi/ui/ui.py /usr/program")
@@ -1031,6 +994,7 @@ def Show_update():
 		ui.quit()
 		#os.system("sudo python3 /usr/program/ui.py")
 		os.system("sudo rm -r /home/pi/ui")
+		os.system("sudo rm -r /home/pi/versionui")
 	def Later():
 		top.quit()
 		#os.system("sudo rm -r /home/pi/versionui")
@@ -1046,7 +1010,7 @@ def Show_update():
 	past = Label(top, text= "  ", bg="gray85")
 	Completed.grid(row = 0, column = 0)
 	Update = Button(top, text="Cập nhật!", command= Update, bg="gray80")
-	Later = Button(top, text=" Để sau! ", command= Later, bg="gray80" )
+	Later = Button(top, text=" Thoát! ", command= Later, bg="gray80" )
 	
 	past.grid(row = 1, column = 0)
 	Update.grid(row = 2, column = 0, sticky = 'WN', padx = 30)
@@ -1061,7 +1025,18 @@ def Check_update_ui():
 			break
 		if line.strip() == version:
 			print("line.strip() == version")
-			#os.system("sudo rm -r /home/pi/versionui")
+			
+			
+			size12 = tkfont.Font(size = 12)
+			top = Toplevel()
+			top.geometry("347x82+745+449")
+			top.title("Cập nhật Lịch Thông Minh!")
+			top.configure(bg='gray85')
+			Completed = Label(top, text= "   Phiên bản hiện tại đã là bản mới nhất!\n" + version, bg="gray85", fg="black", font=size12)
+			past = Label(top, text= "  ", bg="gray85")
+			Completed.grid(row = 0, column = 0)
+			
+			os.system("sudo rm -r /home/pi/versionui")
 			break
 		else:
 			os.system("sudo rm -r /home/pi/ui")
@@ -1078,10 +1053,70 @@ def connect(host='https://youtube.com'):
 	except:
 		return False
 	#check
-if connect():
-	os.system("git clone https://github.com/HuynhLVC/versionui.git")
-	Check_update_ui()
-	#print("check_update")
-	os.system("sudo rm -r /home/pi/versionui")
+#def waitting_show():
+def Update():
+	#
+	if connect():
+		os.system("git clone https://github.com/HuynhLVC/versionui.git")
+		Check_update_ui()
+		#print("connect -> check_update")
+	else:
+		#print("no internet")
+		size12 = tkfont.Font(size = 12)
+		top = Toplevel()
+		top.geometry("347x82+745+449")
+		top.title("Thông báo cập nhật!")
+		top.configure(bg='gray85')
+		Completed = Label(top, text= "không có kết nối internet!", bg="gray85", fg="black", font=size12)
+		past = Label(top, text= "  ", bg="gray85")
+		Completed.grid(row = 0, column = 0)
+		#os.system("sudo rm -r /home/pi/versionui")
+	
+	
+#### MENU
+iconWifi = PhotoImage(file = r"/usr/icon/wifi.png")
+Wifiimage = iconWifi.subsample(11, 11)
+iconDl = PhotoImage(file = r"/usr/icon/rotate.png")
+Dlimage = iconDl.subsample(18, 18)
+iconUrl = PhotoImage(file = r"/usr/icon/url.png")
+Urlimage = iconUrl.subsample(10, 10)
+iconTime = PhotoImage(file = r"/usr/icon/time.png")
+Timeimage = iconTime.subsample(18, 18)
+Net = Button(ui, image = Wifiimage, compound=LEFT, text = "Wi-Fi   ", bg="gray80", fg="black",width=275, height=45, font=size13 , borderwidth=3, command = WifiTab) 
+Dl = Button(ui,image = Dlimage, compound=LEFT, text = "Màn Hình & Xoay   ", bg="gray80", fg="black",width=275, height=45, font=size13, borderwidth=3, command = RotateTab) # when not (icon compound=LEFT,) width=27, height=2,
+Url = Button(ui, image = Urlimage, compound=LEFT, text = "Nhập URL   ", bg="gray80", fg="black",width=275, height=45, font=size13, borderwidth=3, command = UrlTab)
+Tdl = Button(ui, image = Timeimage, compound=LEFT, text = "Tắt & Mở tự động   ", bg="gray80",width=275, height=45, font=size13, borderwidth=3, command = TimeTab) # 
+ExitBt = Button(ui, text = "< Áp Dụng >", bg="gray80", fg="black",width=25, height=2, font=size13, borderwidth=3, command = ApplyExit) 
+Update = Button(ui, compound=LEFT, text = "Bản cập nhật", bg="gray80",width=25, height=2, font=size13, borderwidth=3, command = Update) # 
+KeyUse = Label(ui, text= "                                                                       Khởi động lại để chắc chắc cài đặt được áp dụng! - (ESC để hủy và thoát!) ", bg="gray30", fg="white", font=size12)
+
+# Shoving it into the screen
+Net.grid(row=0, column=0, sticky = 'W')
+Dl.grid(row=1, column=0, sticky = 'W')
+Url.grid(row=2, column=0, sticky = 'W') 
+Tdl.grid(row=3, column=0, sticky = 'W')
+
+Update.grid(row=4, column=0, sticky = 'W')
+ExitBt.grid(row=5, column=0, sticky = 'W')
+KeyUse.grid(row=6, column =0, columnspan = 5, sticky =  'S')
+#Update
+WifiTab()
+create(frame, e0)
+if os.path.exists("/home/pi/OnOffDisplay.py") == True:
+	GetTimeOld()
+#
+ui.geometry("1049x759+400+100") #Zise def 950x350
+#ui.geometry("1049x722+400+100") #Zise def 950x350
+#ui.iconbitmap('/usr/icon/My_calender_logo.ico')
+##Start_Paste_Entry
+make_textmenu(ui)
+# bind the feature to all Entry widget
+ui.bind_class("Entry", "<Button-3><ButtonRelease-3>", show_textmenu)
+ui.bind_class("Entry", "<Control-a>", callback_select_all)
+##End_Paste_Entry
+##Update&Upgrade:
+
+version = "version_1.4"
+
 
 ui.mainloop()
