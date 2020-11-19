@@ -978,7 +978,6 @@ mOff_box.current(0) #defaut value
 
 #time.sleep(10)
 def Show_update():
-	Completed.grid_remove()
 	def Update():
 		os.system("sudo rm /usr/program/ui.py")
 		os.system("sudo mv /home/pi/ui/ui.py /usr/program")
