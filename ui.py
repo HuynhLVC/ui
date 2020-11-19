@@ -995,8 +995,9 @@ def Show_update():
 		os.system("sudo rm -r /home/pi/ui")
 		os.system("sudo rm -r /home/pi/versionui")
 	def Later():
+		os.system("sudo rm -r /home/pi/ui")
 		top.quit()
-		#os.system("sudo rm -r /home/pi/versionui")
+		os.system("sudo rm -r /home/pi/versionui")
 	size16 = tkfont.Font(size = 16)
 	size12 = tkfont.Font(size = 12)
 	size13 = tkfont.Font(size = 13)
