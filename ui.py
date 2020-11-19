@@ -826,7 +826,7 @@ AutoFix_Choice = Radiobutton(ui, bg="gray80", fg="black", width = 16, height = 1
             value=1, command = select_autofix)
 #
 v_t_size = StringVar
-ChoiceSize_box = Combobox(ui, textvariable = v_t_size, width = 17, height = 4, font = size11)
+ChoiceSize_box = Combobox(ui, textvariable = v_t_size, width = 17, height = 5, font = size11)
 ChoiceSize_box['values'] = (' CEA-640x480(4:3)',  
                         ' CEA-720x480(4:3)', 
                         ' CEA-1280x720(16:9)', 
