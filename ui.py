@@ -1006,14 +1006,14 @@ def Show_update():
 	top.title("Cập nhật Lịch Thông Minh!")
 	top.configure(bg='gray85')
 	Completed = Label(top, text= "Đã tải xuống version mới!\n Khởi động lại ứng  sau khi cập nhật!", bg="gray85", fg="black", font=size12)
-	past = Label(top, text= "  ", bg="gray85")
+	#past = Label(top, text= "  ", bg="gray85")
 	Completed.grid(row = 0, column = 0)
 	Update = Button(top, text="Cập nhật!", command= Update, bg="gray80")
 	Later = Button(top, text=" Thoát! ", command= Later, bg="gray80" )
 	
-	past.grid(row = 1, column = 0)
-	Update.grid(row = 2, column = 0, sticky = 'WN', padx = 30)
-	Later.grid(row = 2, column = 0, sticky = 'EN', padx = 20)
+	#past.grid(row = 1, column = 0)
+	Update.grid(row = 1, column = 0, sticky = 'WN', padx = 30)
+	Later.grid(row = 1, column = 0, sticky = 'EN', padx = 20)
 def Check_update_ui():
 	#os.system("sudo rm -r /home/pi/versionui")
 	fin = open("/home/pi/versionui/version.txt", "r")
