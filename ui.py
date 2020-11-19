@@ -1116,7 +1116,7 @@ ui.bind_class("Entry", "<Control-a>", callback_select_all)
 ##End_Paste_Entry
 ##Update&Upgrade:
 
-version = "version_1.4"
+version = "version_1."
 
 
 ui.mainloop()
