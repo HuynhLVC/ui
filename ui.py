@@ -1010,7 +1010,7 @@ def Show_update():
 	#past = Label(top, text= "  ", bg="gray85")
 	Completed.grid(row = 0, column = 0)
 	Update = Button(top, text="Cập nhật!", command= Update, bg="gray80")
-	Later = Button(top, text=" Thoát! ", command= Later, bg="gray80" )
+	Later = Button(top, text="  Thoát!  ", command= Later, bg="gray80" )
 	
 	#past.grid(row = 1, column = 0)
 	Update.grid(row = 1, column = 0, sticky = 'WN', padx = 30)
