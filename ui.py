@@ -82,7 +82,7 @@ def ApplyExit():
 	#print("Apply OK")
 	Complete()
 	#
-	Check_update_ui()
+	#############################################################Check_update_ui()
 #KeyBoard
 def Out(event):
     n = 1
@@ -216,7 +216,29 @@ def RotateTab():
 	
 	
 	#DlApply.grid(row=4, column=4, sticky='ES')
-	
+def SaveChoice(value):
+		print(value)
+		for i in range(0, 13):
+			test_now = "Cr=" + str(i)
+			print(test_now)
+			fin = open("/usr/program/ui.py", "r")
+			while(True):
+				print(test_now)
+				
+				line = fin.readline()
+				if not line:
+					print("break")
+					break
+				if line.strip() == test_now:
+					print("line.strip == Cr")
+					f = open("/usr/program/ui.py", "rt")
+					data = f.read()
+					data = data.replace("Cr=" + str(i), "Cr=" + str(value))
+					f.close()
+					f = open("/usr/program/ui.py", "wt")
+					f.write(data)
+					f.close()
+			
 def SetDisplay(): ##For root & Pi
 	#os.system("sudo nano /boot/config.txt")
 	#print(v.get())
@@ -349,12 +371,17 @@ def SetDisplay(): ##For root & Pi
 		#Delete_command_and_...
 		add_disable_overscan()
 	#Tuy chon:
+	
+	
 	if s == 2:
 		delete_group_and_mode()
 		add_disable_overscan()
 		Choice_now = ChoiceSize_box.get()
+		print(Choice_now)
 		#line1_now = 0
 		#line2_now = 0
+		
+		
 		def check_for_group_1():
 			line1_now = 0
 			line2_now = 0
@@ -444,30 +471,39 @@ def SetDisplay(): ##For root & Pi
 				f = open("/boot/config.txt", "at")
 				f.write('\n'+line2);
 				f.close()
+				
+		if Choice_now =='  <none> ':
+			SaveChoice(0)
 		if Choice_now ==' CEA-640x480(4:3)':
 			line1 = "hdmi_group=1"
 			line2 = "hdmi_mode=1"
 			check_for_group_1()
+			SaveChoice(1)
+			print("ok 4:3")
 				
 		if Choice_now ==' CEA-720x480(4:3)':
 			line1 = "hdmi_group=1"
 			line2 = "hdmi_mode=2"
 			check_for_group_1()
+			SaveChoice(2)
 			
 		if Choice_now ==' CEA-1280x720(16:9)':
 			line1 = "hdmi_group=1"
 			line2 = "hdmi_mode=4"
 			check_for_group_1()
+			SaveChoice(3)
 			
 		if Choice_now ==' CEA-1920x1080(16:9)':
 			line1 = "hdmi_group=1"
 			line2 = "hdmi_mode=16"
 			check_for_group_1()
+			SaveChoice(4)
 			
-		if Choice_now ==' CEA-3840x2160(16:9)':
+		if Choice_now ==' CEA-3800x2160(16:9)':
 			line1 = "hdmi_group=1"
 			line2 = "hdmi_mode=97"
 			check_for_group_1()
+			SaveChoice(5)
 			
 		#####
 		
@@ -475,41 +511,48 @@ def SetDisplay(): ##For root & Pi
 			line1 = "hdmi_group=2"
 			line2 = "hdmi_mode=2"
 			check_for_group_2()
+			SaveChoice(6)
 			
 		if Choice_now ==' DMT-800x600(4:3)':
 			line1 = "hdmi_group=2"
 			line2 = "hdmi_mode=9"
 			check_for_group_2()
+			SaveChoice(7)
 			
 		if Choice_now ==' DMT-1024x768(4:3)':
 			line1 = "hdmi_group=2"
 			line2 = "hdmi_mode=16"
 			check_for_group_2()
+			SaveChoice(8)
 			
 		if Choice_now ==' DMT-1280x720(16:9)':
 			ine1 = "hdmi_group=2"
 			line2 = "hdmi_mode=85"
 			check_for_group_2()
+			SaveChoice(9)
 			
 		if Choice_now ==' DMT-1600x1200(4:3)':
 			line1 = "hdmi_group=2"
 			line2 = "hdmi_mode=51"
 			check_for_group_2()
+			SaveChoice(10)
 			
 		if Choice_now ==' DMT-1920x1080(16:9)':
 			line1 = "hdmi_group=2"
 			line2 = "hdmi_mode=82"
 			check_for_group_2()
+			SaveChoice(11)
 			
 		if Choice_now ==' DMT-1280x1024(5:4)':
 			line1 = "hdmi_group=2"
 			line2 = "hdmi_mode=35"
 			check_for_group_2()
+			SaveChoice(12)
 			
 			
 		#Delete_command_and_...
 			
-                        
+#SaveChoice(12)                      
                         
 		
 				
@@ -826,8 +869,9 @@ AutoFix_Choice = Radiobutton(ui, bg="gray80", fg="black", width = 16, height = 1
             value=1, command = select_autofix)
 #
 v_t_size = StringVar
-ChoiceSize_box = Combobox(ui, textvariable = v_t_size, width = 17, height = 5, font = size11)
-ChoiceSize_box['values'] = (' CEA-640x480(4:3)',  
+ChoiceSize_box = Combobox(ui, textvariable = v_t_size, width = 17, height = 5, font = size11, state="readonly")
+ChoiceSize_box['values'] = ('  <none> ',
+                        ' CEA-640x480(4:3)',  
                         ' CEA-720x480(4:3)', 
                         ' CEA-1280x720(16:9)', 
                         ' CEA-1920x1080(16:9)', 
@@ -838,8 +882,9 @@ ChoiceSize_box['values'] = (' CEA-640x480(4:3)',
                         ' DMT-1280x720(16:9)',  
                         ' DMT-1600x1200(4:3)',  
                         ' DMT-1920x1080(16:9)',  
-                        ' DMT-1280x1024(5:4)')       
-
+                        ' DMT-1280x1024(5:4)')  
+Cr=0  
+ChoiceSize_box.current(Cr)
 #
 #
 AfterbootLabel = Label(ui, text="Settings will be applied after reboot", bg="gray30", fg="white", font=size12)
@@ -941,7 +986,7 @@ for i in range(0, 24):
 		hOn_items[i] = str("0" + str(i))
 	else:
 		hOn_items[i] = str(i)
-hOn_box = Combobox(ui, values = hOn_items, width = 10, height = 9, font = size11)	
+hOn_box = Combobox(ui, values = hOn_items, width = 10, height = 9, font = size11,state="readonly")	
 hOn_box.current(7) #defaut value
 #minute
 mOn_items = list(range(0, 60))
@@ -950,7 +995,7 @@ for i in range(0, 60):
 		mOn_items[i] = str("0" + str(i))
 	else:
 		mOn_items[i] = str(i)
-mOn_box = Combobox(ui, values = mOn_items, width = 10, height = 9, font = size11)
+mOn_box = Combobox(ui, values = mOn_items, width = 10, height = 9, font = size11, state="readonly")
 mOn_box.current(0) #defaut value
 ######BOx_Time_Off
 #Off_frame = Frame(ui)
@@ -960,7 +1005,7 @@ for i in range(0, 24):
 		hOff_items[i] = str("0" + str(i))
 	else:
 		hOff_items[i] = str(i)
-hOff_box = Combobox(ui, values = hOff_items, width = 10, height = 5, font = size11)	
+hOff_box = Combobox(ui, values = hOff_items, width = 10, height = 5, font = size11, state="readonly")	
 hOff_box.current(22) #defaut value
 mOff_items = list(range(0, 60))
 for i in range(0, 60):
@@ -968,7 +1013,7 @@ for i in range(0, 60):
 		mOff_items[i] = str("0" + str(i))
 	else:
 		mOff_items[i] = str(i)
-mOff_box = Combobox(ui, values = mOn_items, width = 10, height = 5, font = size11)
+mOff_box = Combobox(ui, values = mOn_items, width = 10, height = 5, font = size11, state="readonly")
 mOff_box.current(0) #defaut value
 #
 #OK = Button(ui, text="OK", command=print_choice) #button 
