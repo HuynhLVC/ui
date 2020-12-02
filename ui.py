@@ -217,20 +217,19 @@ def RotateTab():
 	
 	#DlApply.grid(row=4, column=4, sticky='ES')
 def SaveChoice(value):
-		print(value)
+		#print(value)
 		for i in range(0, 13):
 			test_now = "Cr=" + str(i)
-			print(test_now)
+			#print(test_now)
 			fin = open("/usr/program/ui.py", "r")
 			while(True):
-				print(test_now)
+				#print(test_now)
 				
 				line = fin.readline()
 				if not line:
-					print("break")
 					break
 				if line.strip() == test_now:
-					print("line.strip == Cr")
+					#print("line.strip == Cr")
 					f = open("/usr/program/ui.py", "rt")
 					data = f.read()
 					data = data.replace("Cr=" + str(i), "Cr=" + str(value))
@@ -240,7 +239,6 @@ def SaveChoice(value):
 					f.close()
 			
 def SetDisplay(): ##For root & Pi
-	#os.system("sudo nano /boot/config.txt")
 	#print(v.get())
 	n = v.get()
 	test = 0
@@ -326,7 +324,7 @@ def SetDisplay(): ##For root & Pi
 			if line.strip() == "hdmi_group=1":
 				f = open("/boot/config.txt", "rt")
 				data = f.read()
-				data = data.replace('hdmi_group=1','')
+				data = data.replace('hdmi_group=1','#hdmi_group=1')
 				f.close()
 				f = open("/boot/config.txt", "wt")
 				f.write(data)
@@ -334,22 +332,25 @@ def SetDisplay(): ##For root & Pi
 			if line.strip() == "hdmi_group=2":
 				f = open("/boot/config.txt", "rt")
 				data = f.read()
-				data = data.replace('hdmi_group=2','')
+				data = data.replace('hdmi_group=2','#hdmi_group=2')
 				f.close()
 				f = open("/boot/config.txt", "wt")
 				f.write(data)
 				f.close()
 		######
-		######
 		for x in range(100):
-			f = open("/boot/config.txt","r")
-			lines = f.readlines()
-			f.close()
-			f = open("/boot/config.txt","w")
+			a_file = open("/boot/config.txt", "r")
+
+			lines = a_file.readlines()
+			a_file.close()
+
+			new_file = open("/boot/config.txt", "w")
 			for line in lines:
-				if line!="hdmi_mode="+ str(x):
-					f.write(line)
-			f.close()
+				line_delete = ('hdmi_mode=' + str(x))
+				if line.strip("\n") != line_delete:
+					new_file.write(line)
+			new_file.close()
+		######
 		
 		
 	#print(v_r_size.get())
@@ -357,207 +358,210 @@ def SetDisplay(): ##For root & Pi
 	#print(s)
 	if s == 0:
 		delete_group_and_mode()
-		#Delete_command
-		f = open("/boot/config.txt", "rt")
-		data = f.read()
-		data = data.replace('disable_overscan=1','')
-		f.close()
-		f = open("/boot/config.txt", "wt")
-		f.write(data)
-		f.close()
+		#
+		a_file = open("/boot/config.txt", "r")
+		lines = a_file.readlines()
+		a_file.close()
+		new_file = open("/boot/config.txt", "w")
+		for line in lines:
+			if line.strip("\n") != "disable_overscan=1":
+				new_file.write(line)
+		new_file.close()
 		#...
 	if s == 1:
 		delete_group_and_mode()
-		#Delete_command_and_...
 		add_disable_overscan()
+	
+	
 	#Tuy chon:
-	
-	
 	if s == 2:
 		delete_group_and_mode()
 		add_disable_overscan()
 		Choice_now = ChoiceSize_box.get()
-		print(Choice_now)
-		#line1_now = 0
-		#line2_now = 0
+		#print(Choice_now)
+
 		
-		
-		def check_for_group_1():
-			line1_now = 0
-			line2_now = 0
-			#check_line1..:
+		def enble_hdmi_goup1(mode):
+			#print("mode" + mode)
+			has = 0
 			fin = open("/boot/config.txt", "r")
 			while(True):
-				#read next line
-				line = fin.readline()
-				if not line:
-					break
-				if line.strip() == "hdmi_group=2":
-					f = open("/boot/config.txt", "rt")
-					data = f.read()
-					data = data.replace('hdmi_group=2',line1)
-					f.close()
-					f = open("/boot/config.txt", "wt")
-					f.write(data)
-					f.close()
-					line1_now = 1
-					break
-				if line.strip() == line1:
-					line1_now = 1
-					break
-			#add if chua co:
-			if line1_now == 0:
-				f = open("/boot/config.txt", "at")
-				f.write('\n'+line1);
-				f.close()
-				
-			##Check_line2..:
-			fin = open("/boot/config.txt", "r")
-			while(True):
-				#read next line
-				line = fin.readline()
-				if not line:
-					break
-				if line.strip() == line2:
-					line2_now = 1
-					break
-			#add if chua co:
-			if line2_now == 0:
-				f = open("/boot/config.txt", "at")
-				f.write('\n'+line2);
-				f.close()
-		def check_for_group_2():
-			line1_now = 0
-			line2_now = 0
-			#check_line1..:
-			fin = open("/boot/config.txt", "r")
-			while(True):
-				#read next line
 				line = fin.readline()
 				if not line:
 					break
 				if line.strip() == "hdmi_group=1":
+					has = has + 1
+					break
+				if line.strip() == "#hdmi_group=1":
+					has = has + 1
 					f = open("/boot/config.txt", "rt")
 					data = f.read()
-					data = data.replace('hdmi_group=1',line1)
+					data = data.replace("#hdmi_group=1","hdmi_group=1")
 					f.close()
 					f = open("/boot/config.txt", "wt")
 					f.write(data)
 					f.close()
-					line1_now = 1
 					break
-				if line.strip() == line1:
-					line1_now = 1
-					break
-			#add if chua co:
-			#print(line1_now)
-			if line1_now == 0:
+			if has == 0:
 				f = open("/boot/config.txt", "at")
-				f.write('\n'+line1);
+				f.write('\nhdmi_group=1');
 				f.close()
-				
-			##Check_line2..:
+			#group_mode	
+			test_mode = 0
+			for x in range (100):
+				line_check = ('hdmi_mode=' + str(x))
+				#print(line_check)
+				while(True):
+					line = fin.readline()
+					if not line:
+						break
+					if line.strip() == line_check:
+						test_mode = test_mode + 1
+						f = open("/boot/config.txt", "rt")
+						data = f.read()
+						data = data.replace(line_check,mode)
+						f.close()
+						f = open("/boot/config.txt", "wt")
+						f.write(data)
+						f.close()
+						break
+			if test_mode == 0:
+				f = open("/boot/config.txt", "at")
+				f.write('\n' + mode)
+				f.close()
+		#
+		def enble_hdmi_goup2(mode):
+			#print(mode)
+			has = 0
 			fin = open("/boot/config.txt", "r")
 			while(True):
-				#read next line
 				line = fin.readline()
 				if not line:
 					break
-				if line.strip() == line2:
-					line2_now = 1
+				if line.strip() == "hdmi_group=2":
+					has = has + 1
 					break
-			#add if chua co:
-			if line2_now == 0:
+				if line.strip() == "#hdmi_group=2":
+					has = has + 1
+					f = open("/boot/config.txt", "rt")
+					data = f.read()
+					data = data.replace("#hdmi_group=2","hdmi_group=2")
+					f.close()
+					f = open("/boot/config.txt", "wt")
+					f.write(data)
+					f.close()
+					break
+			if has == 0:
 				f = open("/boot/config.txt", "at")
-				f.write('\n'+line2);
+				f.write('\nhdmi_group=2');
 				f.close()
-				
+			#
+			test_mode = 0
+			for x in range (100):
+				line_check = 'hdmi_mode=' + str(x)
+				#print(line_check)
+				while(True):
+					line = fin.readline()
+					if not line:
+						break
+					if line.strip() == line_check:
+						test_mode = test_mode + 1
+						f = open("/boot/config.txt", "rt")
+						data = f.read()
+						data = data.replace(line_check,mode)
+						f.close()
+						f = open("/boot/config.txt", "wt")
+						f.write(data)
+						f.close()
+						break
+			if test_mode == 0:
+				f = open("/boot/config.txt", "at")
+				f.write("\n" + mode)
+				f.close()
+						
+						
+		##Delete_down
 		if Choice_now =='  <none> ':
 			SaveChoice(0)
 		if Choice_now ==' CEA-640x480(4:3)':
-			line1 = "hdmi_group=1"
+			
 			line2 = "hdmi_mode=1"
-			check_for_group_1()
+			enble_hdmi_goup1(line2)
 			SaveChoice(1)
-			print("ok 4:3")
+			print(line2)
 				
 		if Choice_now ==' CEA-720x480(4:3)':
-			line1 = "hdmi_group=1"
+			
 			line2 = "hdmi_mode=2"
-			check_for_group_1()
+			enble_hdmi_goup1(line2)
 			SaveChoice(2)
+			print(line2)
 			
 		if Choice_now ==' CEA-1280x720(16:9)':
-			line1 = "hdmi_group=1"
+			
 			line2 = "hdmi_mode=4"
-			check_for_group_1()
+			enble_hdmi_goup1(line2)
 			SaveChoice(3)
+			print(line2)
 			
 		if Choice_now ==' CEA-1920x1080(16:9)':
-			line1 = "hdmi_group=1"
+			
 			line2 = "hdmi_mode=16"
-			check_for_group_1()
+			enble_hdmi_goup1(line2)
 			SaveChoice(4)
 			
 		if Choice_now ==' CEA-3800x2160(16:9)':
-			line1 = "hdmi_group=1"
+			
 			line2 = "hdmi_mode=97"
-			check_for_group_1()
+			enble_hdmi_goup1(line2)
 			SaveChoice(5)
 			
 		#####
 		
 		if Choice_now ==' DMT-480p(4:3)':
-			line1 = "hdmi_group=2"
+			
 			line2 = "hdmi_mode=2"
-			check_for_group_2()
+			enble_hdmi_goup2(line2)
 			SaveChoice(6)
 			
 		if Choice_now ==' DMT-800x600(4:3)':
-			line1 = "hdmi_group=2"
+			
 			line2 = "hdmi_mode=9"
-			check_for_group_2()
+			enble_hdmi_goup2(line2)
 			SaveChoice(7)
 			
 		if Choice_now ==' DMT-1024x768(4:3)':
-			line1 = "hdmi_group=2"
+			
 			line2 = "hdmi_mode=16"
-			check_for_group_2()
+			enble_hdmi_goup2(line2)
 			SaveChoice(8)
 			
 		if Choice_now ==' DMT-1280x720(16:9)':
-			ine1 = "hdmi_group=2"
+			
 			line2 = "hdmi_mode=85"
-			check_for_group_2()
+			enble_hdmi_goup2(line2)
 			SaveChoice(9)
 			
 		if Choice_now ==' DMT-1600x1200(4:3)':
-			line1 = "hdmi_group=2"
+			
 			line2 = "hdmi_mode=51"
-			check_for_group_2()
+			enble_hdmi_goup2(line2)
 			SaveChoice(10)
 			
 		if Choice_now ==' DMT-1920x1080(16:9)':
-			line1 = "hdmi_group=2"
+			
 			line2 = "hdmi_mode=82"
-			check_for_group_2()
+			enble_hdmi_goup2(line2)
 			SaveChoice(11)
 			
 		if Choice_now ==' DMT-1280x1024(5:4)':
-			line1 = "hdmi_group=2"
+			
 			line2 = "hdmi_mode=35"
-			check_for_group_2()
+			enble_hdmi_goup2(line2)
 			SaveChoice(12)
 			
 			
-		#Delete_command_and_...
-			
-#SaveChoice(12)                      
-                        
-		
-				
-		
-	
+
 #...
 #AddURL
 def UrlTab():
@@ -883,7 +887,7 @@ ChoiceSize_box['values'] = ('  <none> ',
                         ' DMT-1600x1200(4:3)',  
                         ' DMT-1920x1080(16:9)',  
                         ' DMT-1280x1024(5:4)')  
-Cr=0  
+Cr=9  
 ChoiceSize_box.current(Cr)
 #
 #
@@ -927,6 +931,7 @@ L_Choice = Radiobutton(ui,
             
 f = open("/boot/config.txt", "r")
 check_size = 0
+find_mode = 0
 while(True):
 	#read next line
 	line = f.readline()
@@ -947,18 +952,23 @@ while(True):
 		L_Choice.select()
 		L_Choice.flash()
 		#print(line.strip() + " old")
-		
+	if line.strip() == "hdmi_group=1" or line.strip() == "hdmi_group=2":
+		#print("has group")
+		find_mode = 1
 	if line.strip() == "disable_overscan=1":
-		AutoFix_Choice.select()
-		AutoFix_Choice.flash()
+		select_autofix()
 		check_size = 1
 	
 	#close file
 	f.close
 if check_size == 0:
-	Default_Choice.select()
-	Default_Choice.flash()
-	
+	select_default()
+	#Default_Choice.select()
+	#Default_Choice.flash()
+if find_mode == 1 and check_size == 1:
+	select_size_choice()
+
+
 DlApply = Button(ui, text=" Apply  ", command = SetDisplay) #Apply
 
         ### URL Creating Label widget:
@@ -1160,6 +1170,6 @@ ui.bind_class("Entry", "<Button-3><ButtonRelease-3>", show_textmenu)
 ui.bind_class("Entry", "<Control-a>", callback_select_all)
 ##End_Paste_Entry
 ##Update&Upgrade:
-version = "version_1.8"
+version = "version_1.9"
 
 ui.mainloop()
