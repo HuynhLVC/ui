@@ -1171,6 +1171,6 @@ ui.bind_class("Entry", "<Button-3><ButtonRelease-3>", show_textmenu)
 ui.bind_class("Entry", "<Control-a>", callback_select_all)
 ##End_Paste_Entry
 ##Update&Upgrade:
-version = "version_1..9"
+version = "version_1.1.9"
 
 ui.mainloop()
