@@ -1160,7 +1160,8 @@ create(frame, e0)
 if os.path.exists("/home/pi/OnOffDisplay.py") == True:
 	GetTimeOld()
 #
-ui.geometry("1049x759+400+100") #Zise def 950x350
+ui.geometry("1049x759+10+35") #Zise def 950x350
+#ui.geometry("1049x759+400+100") #Zise def 950x350
 #ui.geometry("1049x722+400+100") #Zise def 950x350
 #ui.iconbitmap('/usr/icon/My_calender_logo.ico')
 ##Start_Paste_Entry
@@ -1170,6 +1171,6 @@ ui.bind_class("Entry", "<Button-3><ButtonRelease-3>", show_textmenu)
 ui.bind_class("Entry", "<Control-a>", callback_select_all)
 ##End_Paste_Entry
 ##Update&Upgrade:
-version = "version_1.9"
+version = "version_1..9"
 
 ui.mainloop()
