@@ -169,20 +169,30 @@ def WifiTab():
 	e0.bind("<FocusIn>", ShowKB_e0) #Keyboard
 	#e0.bind("<FocusOut>", Outfocus)
 	e1.bind("<FocusIn>", ShowKB_e1)
+	
+
+				
 def SetNetwork(): #For root & Pi
 		#Completed.grid(row=3, column=4, sticky = 'S')
 		#print (">>>I.Set Wifi Name&Pass:")
 		ssid = e0.get()
-		#print("ssid = " + ssid)
 		passwd = e1.get()
-		#print("passWd = " + passwd)
+		#
+		fin = open("/etc/wpa_supplicant/wpa_supplicant.conf", "rt")
+		data = fin.read()
+		data = data.replace(ssid, ssid + 'old')
+		fin.close()
+		fin = open("/etc/wpa_supplicant/wpa_supplicant.conf", "wt")
+		fin.write(data)
+		fin.close()
+		#
 		fin = open("/etc/wpa_supplicant/wpa_supplicant.conf", "rt")
 		data = fin.read()
 		data = data.replace('''update_config=1''', '''update_config=1
 network={
 	ssid="''' + ssid + '''"
 	psk="''' + passwd + '''"
-    key_mgmt=WPA-PSK
+	key_mgmt=WPA-PSK
 }''')
 		fin.close()
 		fin = open("/etc/wpa_supplicant/wpa_supplicant.conf", "wt")
@@ -1171,6 +1181,6 @@ ui.bind_class("Entry", "<Button-3><ButtonRelease-3>", show_textmenu)
 ui.bind_class("Entry", "<Control-a>", callback_select_all)
 ##End_Paste_Entry
 ##Update&Upgrade:
-version = "version_1.1.9"
+version = "version_1.2.0"
 
 ui.mainloop()
