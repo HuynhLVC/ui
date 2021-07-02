@@ -10,7 +10,7 @@ from shutil import copyfile
 #RESET
 def ResetDiplay():
 	print('resetDL')
-	copyfile("/usr/program/Backup//boot/config.txt", "/boot/config.txt") #DisplayRestore
+	copyfile("/usr/program/Backup/boot/config.txt", "/boot/config.txt") #DisplayRestore
 	#os.system("sudo nano /boot/config.txt")
 def ResetTime():
 	print('resetTime')
