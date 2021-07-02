@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import os
+from shutil import copyfile
+
 os.system("git clone https://github.com/HuynhLVC/ui.git")
 
 os.system("sudo apt-get install python3-tk")
@@ -8,6 +10,14 @@ os.system("sudo apt-get install python-tk")
 #
 os.system("mkdir -p /usr/icon")
 os.system("mkdir -p /usr/program")
+
+os.system("mkdir -p /usr/program/Backup")
+copyfile("/etc/wpa_supplicant/wpa_supplicant.conf", "/usr/program/Backup/wpa_supplicant.conf") #WifiBackup
+copyfile("/boot/config.txt", "/usr/program/Backup/config.txt") #DisplayBackup
+copyfile("/etc/xdg/lxsession/LXDE-pi/autostart", "/usr/program/Backup/autostart") #UrlBackup
+#TimeBackup is REMOVE file created to Reset
+
+
 
 os.system("sudo mv /home/pi/ui/ui.py /usr/program")
 
@@ -33,3 +43,5 @@ os.system("sudo chmod +x /home/pi/Desktop/Calendar.Desktop")
 
 os.system("sudo apt-get install unclutter")
 os.system("sudo rm -r /home/pi/ui")
+os.system("sudo rm -r /home/pi/Downloads/install")
+
