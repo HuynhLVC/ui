@@ -12,20 +12,70 @@ def ResetDiplay():
 	print('resetDL')
 	copyfile("/usr/program/Backup/config.txt", "/boot/config.txt") #DisplayRestore
 	#os.system("sudo nano /boot/config.txt")
+	size16 = tkfont.Font(size = 16)
+	size12 = tkfont.Font(size = 12)
+	size13 = tkfont.Font(size = 13)
+	size11 = tkfont.Font(size = 11)
+	top = Toplevel()
+	top.geometry("400x82+445+249") #400x82+745+449
+	top.title("Completed!")
+	top.configure(bg='gray85')
+	Completed = Label(top, text= "\n                   Đã khôi phục cài đặt gốc!", bg="gray85", fg="black", font=size12)
+	past = Label(top, text= "  ", bg="gray85")
+	Completed.grid(row = 0, column = 0)
+	past.grid(row = 1, column = 0)
+	
 def ResetTime():
 	print('resetTime')
 	os.system("sudo rm -r /home/pi/rpi-hdmi.sh") #Remove___TimeRestore
 	os.system("sudo rm -r /home/pi/OnOffDisplay.py") #...
 	os.system("sudo rm -r /home/pi/.config/autostart/auto.desktop") #...
+	#
+	size16 = tkfont.Font(size = 16)
+	size12 = tkfont.Font(size = 12)
+	size13 = tkfont.Font(size = 13)
+	size11 = tkfont.Font(size = 11)
+	top = Toplevel()
+	top.geometry("400x82+445+249") #400x82+745+449
+	top.title("Completed!")
+	top.configure(bg='gray85')
+	Completed = Label(top, text= "\n                   Đã khôi phục cài đặt gốc!", bg="gray85", fg="black", font=size12)
+	past = Label(top, text= "  ", bg="gray85")
+	Completed.grid(row = 0, column = 0)
+	past.grid(row = 1, column = 0)
 def ResetWifi():
 	print('resetWifi')
 	copyfile("/usr/program/Backup/wpa_supplicant.conf", "/etc/wpa_supplicant/wpa_supplicant.conf") #WifiRestore
-	#os.system("sudo nano /etc/wpa_supplicant/wpa_supplicant.conf")	
+	#os.system("sudo nano /etc/wpa_supplicant/wpa_supplicant.conf")
+	size16 = tkfont.Font(size = 16)
+	size12 = tkfont.Font(size = 12)
+	size13 = tkfont.Font(size = 13)
+	size11 = tkfont.Font(size = 11)
+	top = Toplevel()
+	top.geometry("400x82+445+249") #400x82+745+449
+	top.title("Completed!")
+	top.configure(bg='gray85')
+	Completed = Label(top, text= "\n                   Đã khôi phục cài đặt gốc!", bg="gray85", fg="black", font=size12)
+	past = Label(top, text= "  ", bg="gray85")
+	Completed.grid(row = 0, column = 0)
+	past.grid(row = 1, column = 0)
 def ResetURL():
 	print('resetURL')
 	copyfile("/usr/program/Backup/autostart", "/etc/xdg/lxsession/LXDE-pi/autostart") #UrlRestore
-	
-#RESET	
+	#
+	size16 = tkfont.Font(size = 16)
+	size12 = tkfont.Font(size = 12)
+	size13 = tkfont.Font(size = 13)
+	size11 = tkfont.Font(size = 11)
+	top = Toplevel()
+	top.geometry("400x82+445+249") #400x82+745+449
+	top.title("Completed!")
+	top.configure(bg='gray85')
+	Completed = Label(top, text= "\n                   Đã khôi phục cài đặt gốc!", bg="gray85", fg="black", font=size12)
+	past = Label(top, text= "  ", bg="gray85")
+	Completed.grid(row = 0, column = 0)
+	past.grid(row = 1, column = 0)
+#RESET
 
 def Fix_monitor():
 	#os.system("sudo nano /boot/config.txt")
