@@ -1017,7 +1017,7 @@ Reset_Url = Button(ui, text=" Reset URL  ", command= ResetURL)  #RESET
 
 		### Time On-Off screen Creating Label widget:
 TimeLabel = Label(ui, text="Đặt lịch tự động Tắt & Mở            ", bg="gray30", fg="white", font= size16)
-cmLabel = Label(ui, text="   (Áp dụng sau khi khởi động lại!) ", bg="gray30", fg="white", font= size12)
+cmLabel = Label(ui, text="  *Áp dụng sau khi khởi động lại!* ", bg="gray30", fg="white", font= size12)
 OnLabel = Label(ui, text="                     Mở vào lúc:   ", bg="gray30", fg="white", font= size12) #
 OffLabel = Label(ui, text="                     Tắt vào lúc:  ", bg="gray30", fg="white", font= size12) #
 On_Label = Label(ui, text="         Giờ                                             Phút   ", bg="gray30", fg="white")
