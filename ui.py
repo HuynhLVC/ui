@@ -642,7 +642,7 @@ def TimeTab():
 	window.grid_remove() #
 	ui.geometry("1049x408")# 950x350 old
 	TimeLabel.grid(row= 0, column= 3)
-	cmLabel.grid(row= 1, column= 3, sticky = 'N')
+	cmLabel.grid(row= 1, column= 3, sticky = 'WN')
 	OnLabel.grid(row= 2, column= 2, sticky = 'N')
 	OffLabel.grid(row= 3, column= 2)
 	On_Label.grid(row= 2, column= 3, sticky = 'NW')
@@ -1017,7 +1017,7 @@ Reset_Url = Button(ui, text=" Reset URL  ", command= ResetURL)  #RESET
 
 		### Time On-Off screen Creating Label widget:
 TimeLabel = Label(ui, text="Đặt lịch tự động Tắt & Mở            ", bg="gray30", fg="white", font= size16)
-cmLabel = Label(ui, text="Áp dụng sau khi khởi động ! ", bg="gray30", fg="white", font= size12)
+cmLabel = Label(ui, text="   (Áp dụng sau khi khởi động lại!) ", bg="gray30", fg="white", font= size12)
 OnLabel = Label(ui, text="                     Mở vào lúc:   ", bg="gray30", fg="white", font= size12) #
 OffLabel = Label(ui, text="                     Tắt vào lúc:  ", bg="gray30", fg="white", font= size12) #
 On_Label = Label(ui, text="         Giờ                                             Phút   ", bg="gray30", fg="white")
