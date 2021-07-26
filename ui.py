@@ -145,7 +145,7 @@ def ApplyExit():
 	if(e0.get() != test_t):
 		SetNetwork()
 	#
-	if(eUrl.get() !="https://www.youtube.com/watch?v=uIPDa3MbS_I"):
+	if(eUrl.get() !="https://"):
 		#print("url ok")
 		AddUrl()
 	SetDisplay()
@@ -1192,7 +1192,7 @@ UrlLabel = Label(ui, text="URL              ", bg="gray30", fg="white", font= si
 Label31 = Label(ui, text="Nhập URL", bg="gray30", fg="white", font= size12) #
 eUrl = Entry(ui, width=50, bg="ghost white", fg="black")
 
-UserURL = "https://www.youtube.com/watch?v=uIPDa3MbS_I"
+UserURL = "https://"
 eUrl.insert(0, UserURL) #edit Language
 
 Reset_Url = Button(ui, text=" Reset URL  ", command= ResetURL)  #RESET
@@ -1316,13 +1316,13 @@ def Check_update_ui():
 			break
 		else:
 			os.system("sudo rm -r /home/pi/ui")
-			os.system("git clone https://www.youtube.com/watch?v=uIPDa3MbS_Igithub.com/HuynhLVC/ui.git")
+			os.system("git clone https://github.com/HuynhLVC/ui.git")
 			Show_update()
 			break
 			
 #
 import urllib.request
-def connect(host='https://www.youtube.com/watch?v=uIPDa3MbS_Iyoutube.com'):
+def connect(host='https://www.google.com'):
 	try:
 		urllib.request.urlopen(host) #Python 3.x
 		return True
@@ -1333,7 +1333,7 @@ def connect(host='https://www.youtube.com/watch?v=uIPDa3MbS_Iyoutube.com'):
 def Update():
 	#
 	if connect():
-		os.system("git clone https://www.youtube.com/watch?v=uIPDa3MbS_Igithub.com/HuynhLVC/versionui.git")
+		os.system("git clone https://github.com/HuynhLVC/versionui.git")
 		Check_update_ui()
 		#print("connect -> check_update")
 	else:
@@ -1469,8 +1469,7 @@ def Fix_Size_max():
 	Label31.configure(text="Nhập URL", bg="gray30", fg="white", font= size12) #
 	eUrl.configure(width=50, bg="ghost white", fg="black")
 
-	UserURL = "https://www.youtube.com/watch?v=uIPDa3MbS_I"
-	eUrl.insert(0, UserURL) #edit Language
+	#eUrl.insert(0, UserURL) #edit Language
 
 
 		### Time On-Off screen Creating Label widget:
