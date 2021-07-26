@@ -1536,7 +1536,9 @@ make_textmenu(ui)
 ui.bind_class("Entry", "<Button-3><ButtonRelease-3>", show_textmenu)
 ui.bind_class("Entry", "<Control-a>", callback_select_all)
 ##End_Paste_Entry
+#MiniStart
+Fix_Size_mini()
 ##Update&Upgrade:
-version = "version_2.2.1"
+version = "version_2.2.2"
 
 ui.mainloop()
