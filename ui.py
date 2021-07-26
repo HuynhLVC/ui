@@ -45,6 +45,7 @@ def ResetTime():
 	past.grid(row = 1, column = 0)
 def ResetWifi():
 	print('resetWifi')
+	print("LAG = ", LAG_mini)
 	copyfile("/usr/program/Backup/wpa_supplicant.conf", "/etc/wpa_supplicant/wpa_supplicant.conf") #WifiRestore
 	#os.system("sudo nano /etc/wpa_supplicant/wpa_supplicant.conf")
 	size16 = tkfont.Font(size = 16)
@@ -144,7 +145,7 @@ def ApplyExit():
 	if(e0.get() != test_t):
 		SetNetwork()
 	#
-	if(eUrl.get() !="https://"):
+	if(eUrl.get() !="https://www.youtube.com/watch?v=uIPDa3MbS_I"):
 		#print("url ok")
 		AddUrl()
 	SetDisplay()
@@ -158,11 +159,14 @@ def Out(event):
     n = 1
 def ShowKB_e0(event): 
     create(frame, e0)
+    #ui.geometry("1049x759")
     #e0.bind("<FocusIn>", Out)
 def ShowKB_e1(event):
     create(frame, e1)
+    #ui.geometry("1049x759")
 def ShowKB_eUrl(event): 
     create(frame, eUrl)
+    #ui.geometry("1049x759")
 #def Outfocus(event):
     #print(event.type) 
 #Map
@@ -221,24 +225,109 @@ def create(window, entry):
                      ).grid(row=y, column=x, columnspan=columnspan)
             x += columnspan
             window.grid(row=7, column=0, columnspan = 6, sticky = 'S')
+######################################################## KEYBOARD_MINI
+def Out(event):
+    n = 1
+def ShowKB_e0_mini(event):
+    create_mini(frame_mini, e0)
+    #ui.geometry("840x481")#
+    #e0.bind("<FocusIn>", Out)
+def ShowKB_e1_mini(event):
+    create_mini(frame_mini, e1)
+    #ui.geometry("840x481")#
+def ShowKB_eUrl_mini(event): 
+    create_mini(frame_mini, eUrl)
+    #ui.geometry("840x481")#
+#def Outfocus(event):
+    #print(event.type) 
+#Map
+alphabets = [
+	['esc','~','!','@','#','$','%','^','&','*','(',')','_','Backspace'],
+    ['`','1','2','3','4','5','6','7','8','9','0','-','=','+'],
+    ['Tab','q','w','e','r','t','y','u','i','o','p','[',']',"\\"],
+    ['Caps Lock','a','s','d','f','g','h','j','k','l',':','"','Enter'],
+    ['Shift','z','x','c','v','b','n','m',',','.','/','Shift'],
+    ['Space']
+]    
+uppercase = False  
+def select(entry, value):
+    global uppercase
+    if value == "Space":
+        value = ' '
+    elif value == 'Enter':
+        value = '\n'
+    elif value == 'Tab':
+        value = '\t'
+    elif value == 'esc':
+        ui.quit()
+    elif value == "Backspace":
+        if isinstance(entry, Entry):
+            entry.delete(len(entry.get())-1, 'end')
+        else: # tk.Text
+            entry.delete('end - 2c', 'end')
+    elif value in ('Caps Lock', 'Shift'):
+        uppercase = not uppercase # change True to False, or False to True
+    else:
+        if uppercase:
+            value = value.upper()
+        entry.insert('end', value)
+def create_mini(MiniKB, entry):
+    MiniKB.configure(background="gray30")
+    #window.wm_attributes("-alpha", 0.7)
+    for y, row in enumerate(alphabets):
+        x = 0
+        #for x, text in enumerate(row):
+        for text in row:
+            if text in ('Enter', 'Shift','Backspace', 'Caps Lock','+'):
+                width = 9
+                height = 1
+                columnspan = 2
+            elif text == 'Space':
+                width = 40
+                height = 1
+                columnspan = 16
+            else:                
+                width = 4
+                height = 1
+                columnspan = 1
+            Button(MiniKB, text=text, width=width, height = height, font = size11,
+                      command=lambda value=text: select(entry, value),
+                      padx=1, pady=1, bd=5, bg="black", fg="white", borderwidth=3,
+                     ).grid(row=y, column=x, columnspan=columnspan)
+            x += columnspan
+            MiniKB.grid(row=7, column=0, columnspan = 6, sticky = 'S')
     #ui.geometry("1049x722")
 #WiFi
 def WifiTab():
-	create(frame, e0)
+	if LAG_mini == 0:
+		create(frame, e0)
+	if LAG_mini == 1:
+		create_mini(frame_mini, e0)
+		KeyUse.configure(text= "          Khởi động lại để chắc chắc cài đặt được áp dụng! - (ESC để hủy và thoát!) ", bg="gray30", fg="white", font=size12)
 	destroyRotateDl()
 	destroyAddUrl()
 	destroyTimeTab()
 	#...
-	ui.geometry("1049x759")
+	
+	if LAG_mini == 0:
+		ui.geometry("1049x759")
+	if LAG_mini == 1:
+		ui.geometry("717x434")#
 	NetLabel.grid(row=0, column=3)
 	Label0.grid(row=1, column=2)
 	e0.grid(row=1, column=3)
 	Label1.grid(row=2, column=2)
 	e1.grid(row=2, column=3)
 	
-	e0.bind("<FocusIn>", ShowKB_e0) #Keyboard
-	#e0.bind("<FocusOut>", Outfocus)
-	e1.bind("<FocusIn>", ShowKB_e1)
+	if LAG_mini == 0:
+		e0.bind("<FocusIn>", ShowKB_e0) #Keyboard
+		#e0.bind("<FocusOut>", Outfocus)
+		e1.bind("<FocusIn>", ShowKB_e1)
+	if LAG_mini == 1:
+		e0.bind("<FocusIn>", ShowKB_e0_mini) #Keyboard_MINI
+		e1.bind("<FocusIn>", ShowKB_e1_mini)
+	
+	
 	
 	Reset_Wifi.grid(row=5, column=4, sticky='WN') #RESET
 	
@@ -278,7 +367,12 @@ def RotateTab():
 	destroyTimeTab()
 	
 	window.grid_remove() #
-	ui.geometry("1049x408")#
+	MiniKB.grid_remove() #
+	if LAG_mini == 0:
+		ui.geometry("1049x408")#
+	if LAG_mini == 1:
+		ui.geometry("868x272")#
+		KeyUse.configure(text= "Khởi động lại để chắc chắc cài đặt được áp dụng! - (ESC để hủy và thoát!) ", bg="gray30", fg="white", font=size12)
 	
 	Up_Choice.grid(row=1, column=3, sticky='W')
 	R_Choice.grid(row=2, column=3, sticky='W')
@@ -296,6 +390,15 @@ def RotateTab():
 	Default_Choice.grid(row=1, column=3, sticky='E')
 	
 	Reset_Display.grid(row=5, column=4, sticky='WN') #RESET
+	
+	if LAG_mini == 1:
+		DlLabel.configure(text="       Xoay & Tùy Chỉnh Kích Thước Màn Hình       ") #Rotate Display
+		ChoiceLabel_2.configure(text="Kích thước:")
+		Size_choice.grid(row=3, column=3, sticky='E',columnspan=1)
+		AutoFix_Choice.grid(row=2, column=3, sticky='E',columnspan=1)
+		Default_Choice.grid(row=1, column=3, sticky='E',columnspan=1)
+		Reset_Display.grid(row=5, column=4, sticky='WN') #RESET
+		
 	
 def SaveChoice(value):
 		#print(value)
@@ -642,21 +745,32 @@ def SetDisplay(): ##For root & Pi
 			SaveChoice(12)
 			
 			
-
 #...
 #AddURL
 def UrlTab():
-	create(frame, eUrl)
+	if LAG_mini == 0:
+		create(frame, eUrl)
+	if LAG_mini == 1:
+		create_mini(frame_mini, eUrl)
 	destroyWifi()
 	destroyRotateDl()
 	destroyTimeTab()
 	#
-	ui.geometry("1049x759")
+	if LAG_mini == 0:
+		ui.geometry("1049x759")
+	if LAG_mini == 1:
+		ui.geometry("717x434")#
 	UrlLabel.grid(row=0, column=3)
 	Label31.grid(row=1, column=2)
 	eUrl.grid(row=1, column=3)
 	#
-	eUrl.bind("<FocusIn>", ShowKB_eUrl) #Keyboard
+	if LAG_mini == 0:
+		eUrl.bind("<FocusIn>", ShowKB_eUrl) #Keyboard
+	if LAG_mini == 1:
+		eUrl.bind("<FocusIn>", ShowKB_eUrl_mini) #Keyboard_MINI
+		eUrl.configure(width = 30)
+		UrlLabel.configure(text = "           URL          ")
+	
 	#
 	Reset_Url.grid(row=5, column=4, sticky='WN') #RESET
 def AddUrl(): #For root & Pi
@@ -690,17 +804,34 @@ def TimeTab():
 	destroyRotateDl()
 	destroyAddUrl()
 	window.grid_remove() #
-	ui.geometry("1049x408")# 950x350 old
+	MiniKB.grid_remove() #
+	if LAG_mini == 0:
+		ui.geometry("1049x408")#
+	if LAG_mini == 1:
+		ui.geometry("868x272")#
+		KeyUse.configure(text= "Khởi động lại để chắc chắc cài đặt được áp dụng! - (ESC để hủy và thoát!) ", bg="gray30", fg="white", font=size12)
+		### Time On-Off screen Creating Label widget:
+		TimeLabel.configure(text="Đặt lịch tự động Tắt & Mở        ", bg="gray30", fg="white", font= size16)
+		cmLabel.configure(text="   *Áp dụng sau khi khởi động lại!* ", bg="gray30", fg="white", font= size11)
+		OnLabel.configure(text="               Mở vào lúc:   ", bg="gray30", fg="white", font= size11) #
+		OffLabel.configure(text="                Tắt vào lúc:  ", bg="gray30", fg="white", font= size11) #
+		On_Label.configure(text="         Giờ                   Phút   ", bg="gray30", fg="white")
+		Off_Label.configure(text="         Giờ                   Phút   ", bg="gray30", fg="white")
+
+		Reset_Time.configure(text=" Reset Time  ", command = ResetTime) #RESET
+		Reset_Wifi.configure(text=" Reset Wifi  ", command = ResetWifi) #RESET
+	
+	
 	TimeLabel.grid(row= 0, column= 3)
 	cmLabel.grid(row= 1, column= 3, sticky = 'WN')
 	OnLabel.grid(row= 2, column= 2, sticky = 'N')
 	OffLabel.grid(row= 3, column= 2)
 	On_Label.grid(row= 2, column= 3, sticky = 'NW')
 	Off_Label.grid(row= 3, column= 3, sticky = 'W')
-	hOn_box.grid(row= 2, column= 3,  sticky = 'W') #rowspan = 2
-	mOn_box.grid(row= 2, column= 3) #rowspan = 2
-	hOff_box.grid(row= 3, column= 3,  sticky = 'SW') #rowspan = 2
-	mOff_box.grid(row= 3, column= 3, sticky = 'S') #rowspan = 2
+	hOn_box.grid(row= 2, column= 3,  sticky = 'WS') #rowspan = 2
+	mOn_box.grid(row= 2, column= 3,  sticky = 'S') #rowspan = 2
+	hOff_box.grid(row= 4, column= 3,  sticky = 'NW') #rowspan = 2
+	mOff_box.grid(row= 4, column= 3, sticky = 'N') #rowspan = 2
 	#On_frame.grid(row= 3, column= 3, rowspan = 2, sticky = 'WN')
 	#Off_frame.grid(row= 3, column= 3, rowspan = 2, sticky = 'EN', padx=35)
 	
@@ -894,7 +1025,9 @@ def destroyTimeTab():
 ######## 
 ui = Tk()
 frame = Frame(ui) #KeyBoard
+frame_mini = Frame(ui)
 window = frame
+MiniKB = frame_mini
 #ui.iconphoto(False, Tk.PhotoImage(file='/root/Desktop/My_icon/pngbarn.png'))
 ui.title("Settings")
 ui.configure(bg='gray30')
@@ -914,7 +1047,7 @@ NetApply = Button(ui, text=" Apply  ", command=SetNetwork)
 
         ### RotateDisplay Creating Label widget:
 DlLabel = Label(ui, text="  Xoay & Tùy Chỉnh Kích Thước Màn Hình", bg="gray30", fg="white", font=size16) #Rotate Display
-ChoiceLabel = Label(ui, text="         Xoay:  ", bg="gray30", fg="white", font=size12) 
+ChoiceLabel = Label(ui, text="                  Xoay:  ", bg="gray30", fg="white", font=size12) 
 #
 ChoiceLabel_2 = Label(ui, text="     Kích thước:    ", bg="gray30", fg="white", font=size12)
 ChoiceLabel_3 = Label(ui, text="   *--Lựa chọn--:", bg="gray30", fg="white", font=size12)
@@ -970,7 +1103,7 @@ ChoiceSize_box['values'] = ('  <none> ',
                         ' DMT-1600x1200(4:3)',  
                         ' DMT-1920x1080(16:9)',  
                         ' DMT-1280x1024(5:4)')  
-Cr=9  
+Cr=4  
 ChoiceSize_box.current(Cr)
 #
 #
@@ -1052,14 +1185,14 @@ if find_mode == 1 and check_size == 1:
 	select_size_choice()
 
 
-Reset_Display = Button(ui, text=" Reset Display  ", command = ResetDiplay) #RESET
+Reset_Display = Button(ui, text="Reset Display", command = ResetDiplay) #RESET
 
         ### URL Creating Label widget:
 UrlLabel = Label(ui, text="URL              ", bg="gray30", fg="white", font= size16)
 Label31 = Label(ui, text="Nhập URL", bg="gray30", fg="white", font= size12) #
 eUrl = Entry(ui, width=50, bg="ghost white", fg="black")
 
-UserURL = "https://"
+UserURL = "https://www.youtube.com/watch?v=uIPDa3MbS_I"
 eUrl.insert(0, UserURL) #edit Language
 
 Reset_Url = Button(ui, text=" Reset URL  ", command= ResetURL)  #RESET
@@ -1068,10 +1201,10 @@ Reset_Url = Button(ui, text=" Reset URL  ", command= ResetURL)  #RESET
 		### Time On-Off screen Creating Label widget:
 TimeLabel = Label(ui, text="Đặt lịch tự động Tắt & Mở            ", bg="gray30", fg="white", font= size16)
 cmLabel = Label(ui, text="  *Áp dụng sau khi khởi động lại!* ", bg="gray30", fg="white", font= size12)
-OnLabel = Label(ui, text="                     Mở vào lúc:   ", bg="gray30", fg="white", font= size12) #
-OffLabel = Label(ui, text="                     Tắt vào lúc:  ", bg="gray30", fg="white", font= size12) #
-On_Label = Label(ui, text="         Giờ                                             Phút   ", bg="gray30", fg="white")
-Off_Label = Label(ui, text="         Giờ                                             Phút   ", bg="gray30", fg="white")
+OnLabel = Label(ui, text="                          Mở vào lúc:   ", bg="gray30", fg="white", font= size12) #
+OffLabel = Label(ui, text="                          Tắt vào lúc:  ", bg="gray30", fg="white", font= size12) #
+On_Label = Label(ui, text="         Giờ                           Phút   ", bg="gray30", fg="white")
+Off_Label = Label(ui, text="         Giờ                           Phút   ", bg="gray30", fg="white")
 
 Reset_Time = Button(ui, text=" Reset Time  ", command = ResetTime) #RESET
 Reset_Wifi = Button(ui, text=" Reset Wifi  ", command = ResetWifi) #RESET
@@ -1183,13 +1316,13 @@ def Check_update_ui():
 			break
 		else:
 			os.system("sudo rm -r /home/pi/ui")
-			os.system("git clone https://github.com/HuynhLVC/ui.git")
+			os.system("git clone https://www.youtube.com/watch?v=uIPDa3MbS_Igithub.com/HuynhLVC/ui.git")
 			Show_update()
 			break
 			
 #
 import urllib.request
-def connect(host='https://youtube.com'):
+def connect(host='https://www.youtube.com/watch?v=uIPDa3MbS_Iyoutube.com'):
 	try:
 		urllib.request.urlopen(host) #Python 3.x
 		return True
@@ -1200,7 +1333,7 @@ def connect(host='https://youtube.com'):
 def Update():
 	#
 	if connect():
-		os.system("git clone https://github.com/HuynhLVC/versionui.git")
+		os.system("git clone https://www.youtube.com/watch?v=uIPDa3MbS_Igithub.com/HuynhLVC/versionui.git")
 		Check_update_ui()
 		#print("connect -> check_update")
 	else:
@@ -1217,6 +1350,11 @@ def Update():
 	
 	
 #### MENU
+iconMini = PhotoImage(file = r"/usr/icon/minimize.png")
+Miniimage = iconMini.subsample(4, 4)
+iconMax = PhotoImage(file = r"/usr/icon/maximize.png")
+Maximage = iconMax.subsample(4, 4)
+#
 iconWifi = PhotoImage(file = r"/usr/icon/wifi.png")
 Wifiimage = iconWifi.subsample(11, 11)
 iconDl = PhotoImage(file = r"/usr/icon/rotate.png")
@@ -1225,14 +1363,153 @@ iconUrl = PhotoImage(file = r"/usr/icon/url.png")
 Urlimage = iconUrl.subsample(10, 10)
 iconTime = PhotoImage(file = r"/usr/icon/time.png")
 Timeimage = iconTime.subsample(18, 18)
-Net = Button(ui, image = Wifiimage, compound=LEFT, text = "Wi-Fi   ", bg="gray80", fg="black",width=275, height=45, font=size13 , borderwidth=3, command = WifiTab) 
-Dl = Button(ui,image = Dlimage, compound=LEFT, text = "Màn Hình & Xoay   ", bg="gray80", fg="black",width=275, height=45, font=size13, borderwidth=3, command = RotateTab) # when not (icon compound=LEFT,) width=27, height=2,
-Url = Button(ui, image = Urlimage, compound=LEFT, text = "Nhập URL   ", bg="gray80", fg="black",width=275, height=45, font=size13, borderwidth=3, command = UrlTab)
-Tdl = Button(ui, image = Timeimage, compound=LEFT, text = "Tắt & Mở tự động   ", bg="gray80",width=275, height=45, font=size13, borderwidth=3, command = TimeTab) # 
-ExitBt = Button(ui, text = "< Áp Dụng >", bg="gray80", fg="black",width=25, height=2, font=size13, borderwidth=3, command = ApplyExit) 
-Update = Button(ui, compound=LEFT, text = "Bản cập nhật", bg="gray80",width=25, height=2, font=size13, borderwidth=3, command = Update) # 
-KeyUse = Label(ui, text= "                                                                       Khởi động lại để chắc chắc cài đặt được áp dụng! - (ESC để hủy và thoát!) ", bg="gray30", fg="white", font=size12)
+#
+#screen_width = ui.winfo_screenwidth()
+#screen_height = ui.winfo_screenheight()
+#print(screen_width, ",", screen_height)
+#if screen_width < 1000:
+#SIZE
+widthBTicon = 275
+heightBTicon = 45
+FontBT = size13
+widthBT = 25
+heightBT = 2
+BorderBT = 3
 
+LAG_mini = 0
+	
+def Fix_Size_mini():
+	ui.geometry("800x434")
+	global LAG_mini
+	LAG_mini = 1
+	#SIZE_mini
+	widthBTicon = 180
+	heightBTicon = 21
+	FontBT = size12
+	widthBT = 18
+	heightBT = 1
+	BorderBT = 2
+	#
+	#print("FIXED")
+	Net.configure(height = heightBTicon, width = widthBTicon, font = FontBT)
+	Dl.configure(height = heightBTicon, width = widthBTicon, font = FontBT)
+	Url.configure(height = heightBTicon, width = widthBTicon, font = FontBT)
+	Tdl.configure(height = heightBTicon, width = widthBTicon, font = FontBT)
+
+	Update.configure(height = heightBT, width = widthBT, font = FontBT)
+	ExitBt.configure(height = heightBT, width = widthBT, font = FontBT)
+	KeyUse.configure(text= "                               Khởi động lại để chắc chắc cài đặt được áp dụng! - (ESC để hủy và thoát!) ", bg="gray30", fg="white", font=size12)
+	
+	### WIFI Creating Label widget:
+	NetLabel.configure(text="        Wi-Fi           ", bg="gray30", fg="white", font=size13) #SSID
+	Label0.configure(text="Tên (SSID):", bg="gray30", fg="white", font=size11) #SSID
+	e0.configure(width=30, bg="ghost white", fg="black")
+	Label1.configure(text=" Mật khẩu :   ", bg="gray30", fg="white", font=size11) #Pass
+	e1.configure(width=30, bg="ghost white", fg="black", borderwidth=1)
+	### RotateDisplay Creating Label widget:
+	DlLabel.configure(text="                          Xoay & Tùy Chỉnh Kích Thước Màn Hình", bg="gray30", fg="white", font=size13) #Rotate Display
+	ChoiceLabel.configure(text="         Xoay:  ", bg="gray30", fg="white", font=size11) 
+	ChoiceLabel_2.configure(text="     Kích thước:       ", bg="gray30", fg="white", font=size11)
+	ChoiceLabel_3.configure(text="   *--Lựa chọn--:      ", bg="gray30", fg="white", font=size11)
+	### RotateDisplay Creating Label widget:
+	DlLabel.configure(text="  Xoay & Tùy Chỉnh Kích Thước Màn Hình", bg="gray30", fg="white", font=size13) #Rotate Display
+	ChoiceLabel.configure(text="    Xoay:  ", bg="gray30", fg="white", font=size11) 
+	ChoiceLabel_2.configure(text="     Kích thước:    ", bg="gray30", fg="white", font=size11)
+	ChoiceLabel_3.configure(text="   *--Lựa chọn--:", bg="gray30", fg="white", font=size11)
+	#####
+	window.grid_remove()
+	WifiTab()
+	
+	if LAG_mini == 0:
+		e0.bind("<FocusIn>", ShowKB_e0) #Keyboard
+		#e0.bind("<FocusOut>", Outfocus)
+		e1.bind("<FocusIn>", ShowKB_e1)
+	if LAG_mini == 1:
+		e0.bind("<FocusIn>", ShowKB_e0_mini) #Keyboard_MINI
+		e1.bind("<FocusIn>", ShowKB_e1_mini)
+	#create_mini(frame_mini, e0) #FIX
+	
+def Fix_Size_max():
+	#ui.geometry("1049x759")
+	ui.geometry("1049x408")
+	global LAG_mini
+	LAG_mini = 0
+	
+	widthBTicon = 275
+	heightBTicon = 45
+	FontBT = size13
+	widthBT = 25
+	heightBT = 2
+	BorderBT = 3
+	#
+	Net.configure(height = heightBTicon, width = widthBTicon, font = FontBT)
+	Dl.configure(height = heightBTicon, width = widthBTicon, font = FontBT)
+	Url.configure(height = heightBTicon, width = widthBTicon, font = FontBT)
+	Tdl.configure(height = heightBTicon, width = widthBTicon, font = FontBT)
+
+	Update.configure(height = heightBT, width = widthBT, font = FontBT)
+	ExitBt.configure(height = heightBT, width = widthBT, font = FontBT)
+	KeyUse = Label(ui, text= "                                                                       Khởi động lại để chắc chắc cài đặt được áp dụng! - (ESC để hủy và thoát!) ", bg="gray30", fg="white", font=size12)
+	#
+	### WIFI Creating Label widget:
+	NetLabel.configure(text="Wi-Fi            ", bg="gray30", fg="white", font=size16) #SSID
+	Label0.configure(text="Tên (SSID) ", bg="gray30", fg="white", font=size12) #SSID
+	e0.configure(width=50, bg="ghost white", fg="black")
+	Label1.configure(text=" Mật khẩu :   ", bg="gray30", fg="white", font=size12) #Pass
+	e1.configure(width=50, bg="ghost white", fg="black", borderwidth=1)
+	#NetApply.configure(text=" Apply  ", command=SetNetwork)
+
+	### RotateDisplay Creating Label widget:
+	DlLabel.configure(text="  Xoay & Tùy Chỉnh Kích Thước Màn Hình", bg="gray30", fg="white", font=size16) #Rotate Display
+	ChoiceLabel.configure(text="                  Xoay:  ", bg="gray30", fg="white", font=size12) 
+	ChoiceLabel_2.configure(text="     Kích thước:    ", bg="gray30", fg="white", font=size12)
+	ChoiceLabel_3.configure(text="   *--Lựa chọn--:", bg="gray30", fg="white", font=size12)
+	### URL Creating Label widget:
+	UrlLabel.configure(text="URL              ", bg="gray30", fg="white", font= size16)
+	Label31.configure(text="Nhập URL", bg="gray30", fg="white", font= size12) #
+	eUrl.configure(width=50, bg="ghost white", fg="black")
+
+	UserURL = "https://www.youtube.com/watch?v=uIPDa3MbS_I"
+	eUrl.insert(0, UserURL) #edit Language
+
+
+		### Time On-Off screen Creating Label widget:
+	TimeLabel.configure(text="Đặt lịch tự động Tắt & Mở            ", bg="gray30", fg="white", font= size16)
+	cmLabel.configure(text="  *Áp dụng sau khi khởi động lại!* ", bg="gray30", fg="white", font= size12)
+	OnLabel.configure(text="                          Mở vào lúc:   ", bg="gray30", fg="white", font= size12) #
+	OffLabel.configure(text="                          Tắt vào lúc:  ", bg="gray30", fg="white", font= size12) #
+	On_Label.configure(text="         Giờ                           Phút   ", bg="gray30", fg="white")
+	Off_Label.configure(text="         Giờ                           Phút   ", bg="gray30", fg="white")
+
+	Reset_Time = Button(ui, text=" Reset Time  ", command = ResetTime) #RESET
+	Reset_Wifi = Button(ui, text=" Reset Wifi  ", command = ResetWifi) #RESET
+	#######
+	MiniKB.grid_remove()
+	if LAG_mini == 0:
+		e0.bind("<FocusIn>", ShowKB_e0) #Keyboard
+		#e0.bind("<FocusOut>", Outfocus)
+		e1.bind("<FocusIn>", ShowKB_e1)
+	if LAG_mini == 1:
+		e0.bind("<FocusIn>", ShowKB_e0_mini) #Keyboard_MINI
+		e1.bind("<FocusIn>", ShowKB_e1_mini)
+	WifiTab()
+#
+
+Net = Button(ui, image = Wifiimage, compound=LEFT, text = "Wi-Fi   ", bg="gray80", fg="black",width = widthBTicon, height= heightBTicon, font=FontBT , borderwidth=BorderBT, command = WifiTab) 
+Dl = Button(ui,image = Dlimage, compound=LEFT, text = "Màn Hình & Xoay   ", bg="gray80", fg="black",width=widthBTicon, height=heightBTicon, font=size12, borderwidth=BorderBT, command = RotateTab) # when not (icon compound=LEFT,) width=27, height=2,
+Url = Button(ui, image = Urlimage, compound=LEFT, text = "Nhập URL   ", bg="gray80", fg="black",width=widthBTicon, height=heightBTicon, font=size13, borderwidth=BorderBT, command = UrlTab)
+Tdl = Button(ui, image = Timeimage, compound=LEFT, text = "Tắt & Mở tự động   ", bg="gray80",width=widthBTicon, height=heightBTicon, font=size13, borderwidth=BorderBT, command = TimeTab) # 
+ExitBt = Button(ui, text = "< Áp Dụng >", bg="gray80", fg="black",width=widthBT, height=heightBT, font=size13, borderwidth=BorderBT, command = ApplyExit) 
+Update = Button(ui, compound=LEFT, text = "Bản cập nhật", bg="gray80",width=widthBT, height=heightBT, font=size13, borderwidth=BorderBT, command = Update) # 
+KeyUse = Label(ui, text= "                                                                       Khởi động lại để chắc chắc cài đặt được áp dụng! - (ESC để hủy và thoát!) ", bg="gray30", fg="white", font=size12)
+#
+def Fix_mini():
+	Fix_Size_mini()
+#
+Minimize = Button(ui, image = Miniimage, compound=LEFT, bg="gray80", fg="black",width = 22, height= 22, borderwidth=0, command= Fix_mini)
+Minimize.grid(row=0, column=4, sticky = 'EN')
+Maxmize = Button(ui, image =Maximage, compound=LEFT, bg="gray80", fg="black",width = 22, height= 22, borderwidth=0, command=Fix_Size_max)
+Maxmize.grid(row=0, column=5, sticky = 'EN', columnspan = 2)
 # Shoving it into the screen
 Net.grid(row=0, column=0, sticky = 'W')
 Dl.grid(row=1, column=0, sticky = 'W')
@@ -1244,11 +1521,13 @@ ExitBt.grid(row=5, column=0, sticky = 'W')
 KeyUse.grid(row=6, column =0, columnspan = 5, sticky =  'S')
 #Update
 WifiTab()
-create(frame, e0)
+#create(frame, e0)
 if os.path.exists("/home/pi/OnOffDisplay.py") == True:
 	GetTimeOld()
 #
+#ui.wm_attributes('-zoomed', 1)
 ui.geometry("1049x759+10+35") #Zise def 950x350
+ui.resizable(width = False, height = False)
 #ui.geometry("1049x759+400+100") #Zise def 950x350
 #ui.geometry("1049x722+400+100") #Zise def 950x350
 #ui.iconbitmap('/usr/icon/My_calender_logo.ico')
@@ -1259,6 +1538,6 @@ ui.bind_class("Entry", "<Button-3><ButtonRelease-3>", show_textmenu)
 ui.bind_class("Entry", "<Control-a>", callback_select_all)
 ##End_Paste_Entry
 ##Update&Upgrade:
-version = "version_2.1.1"
+version = "version_1.2.1"
 
 ui.mainloop()
