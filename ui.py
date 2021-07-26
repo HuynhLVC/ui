@@ -1322,7 +1322,7 @@ def Check_update_ui():
 			
 #
 import urllib.request
-def connect(host='https://www.google.com'):
+def connect(host='https://youtube.com'):
 	try:
 		urllib.request.urlopen(host) #Python 3.x
 		return True
